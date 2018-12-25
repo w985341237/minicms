@@ -1,3 +1,4 @@
+from django.conf import settings
 """minicms URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -14,21 +15,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 from DjangoUeditor import urls as DjangoUeditor_urls
 from news import views
+
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', include('news.urls')),
     path('admin/', admin.site.urls),
-    path('ueditor/',include(DjangoUeditor_urls)),
-    path('column/<str:column_slug>',views.column_detail,name='column'),
-    path('news/<str:article_slug>',views.article_detail,name='article'),
+    path('ueditor/', include(DjangoUeditor_urls)),
 ]
 
 # use Django server /media/ files
-from django.conf import settings
 
 if settings.DEBUG:
     from django.conf.urls.static import static
     urlpatterns += static(
-        settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ article.title }}
+{% endblock title %}
+
+{% block content %}
+<h1>文章标题：{{ article.title }}</h1>
+<div>
+    作者：{{ article.author }} 发布时间：{{ article.pub_date }} 更新时间：{{ article.update_time }}
+    <div id="main">
+        内容：{{ article.content|safe }}
+    </div>
+</div>
+
+{% endblock content %}
