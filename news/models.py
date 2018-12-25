@@ -6,7 +6,7 @@ from DjangoUeditor.models import UEditorField
 @python_2_unicode_compatible
 class Column(models.Model):
     name = models.CharField('栏目名称',max_length=256)
-    slug = models.CharField('栏目网址',max_length=200,db_index=True)
+    slug = models.CharField('栏目网址',max_length=256,db_index=True)
     summary = models.TextField('栏目简介',default='')
 
     def __str__(self):
@@ -17,6 +17,7 @@ class Column(models.Model):
         verbose_name_plural = '栏目'  #复数形式
         ordering = ['name'] #按照哪个栏目排序
 
+@python_2_unicode_compatible
 class Article(models.Model):
     # 与Column模型为多对多关系，即一篇文章可以有多个栏目，一个栏目也有多个文章
     column = models.ManyToManyField('Column',verbose_name='归属栏目')
@@ -32,6 +33,7 @@ class Article(models.Model):
     published = models.BooleanField('正式发布',default=True)
     pub_date = models.DateTimeField('发表时间',auto_now_add=True,editable=True)
     update_time = models.DateTimeField('更新时间',auto_now=True,null=True)
+
     def __str__(self):
         return self.title
 
