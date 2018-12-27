@@ -5,8 +5,10 @@ from .models import Column, Article
 
 
 def index(request):
-    columns = Column.objects.all()
-    return render(request, 'news/index.html', {'columns': columns})
+    nav_display_columns = Column.objects.filter(nav_display=True)
+    home_display_columns = Column.objects.filter(home_display=True)
+    return render(request, 'news/index.html', {'nav_display_columns': nav_display_columns,
+                                               'home_display_columns': home_display_columns})
 
 
 def column_detail(request, column_slug):

@@ -11,12 +11,17 @@ class Column(models.Model):
     slug = models.CharField('栏目网址', max_length=256, db_index=True)
     summary = models.TextField('栏目简介', default='')
 
+    nav_display = models.BooleanField('导航显示',default=False)
+    home_display = models.BooleanField('首页显示',default=False)
+
     def __str__(self):
         return self.name
 
+    # 获取网址的绝对路径
     def get_absolute_url(self):
         return reverse('column', args=(self.slug,))
 
+    # 设置元数据
     class Meta:
         verbose_name = '栏目'
         verbose_name_plural = '栏目'  # 复数形式
